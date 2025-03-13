@@ -1,0 +1,7 @@
+# Environnement virtuel
+venv/
+# Modèles Rasa
+models/
+# Cache, logs, etc.
+*.log
+*.cache
