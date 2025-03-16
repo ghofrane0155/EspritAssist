@@ -1,0 +1,158 @@
+version: "3.1"
+
+nlu:
+  - intent: greet
+    examples: |
+      - hey
+      - hello
+      - hi
+      - hello there
+      - good morning
+      - good evening
+      - moin
+      - hey there
+      - let's go
+      - hey dude
+      - goodmorning
+      - goodevening
+      - good afternoon
+
+  - intent: goodbye
+    examples: |
+      - cu
+      - good by
+      - cee you later
+      - good night
+      - bye
+      - goodbye
+      - have a nice day
+      - see you around
+      - bye bye
+      - see you later
+
+  - intent: affirm
+    examples: |
+      - yes
+      - y
+      - indeed
+      - of course
+      - that sounds good
+      - correct
+
+  - intent: deny
+    examples: |
+      - no
+      - n
+      - never
+      - I don't think so
+      - don't like that
+      - no way
+      - not really
+
+  - intent: mood_great
+    examples: |
+      - perfect
+      - great
+      - amazing
+      - feeling like a king
+      - wonderful
+      - I am feeling very good
+      - I am great
+      - I am amazing
+      - I am going to save the world
+      - super stoked
+      - extremely good
+      - so so perfect
+      - so good
+      - so perfect
+
+  - intent: mood_unhappy
+    examples: |
+      - my day was horrible
+      - I am sad
+      - I don't feel very well
+      - I am disappointed
+      - super sad
+      - I'm so sad
+      - sad
+      - very sad
+      - unhappy
+      - not good
+      - not very good
+      - extremly sad
+      - so saad
+      - so sad
+
+  - intent: bot_challenge
+    examples: |
+      - are you a bot?
+      - are you a human?
+      - am I talking to a bot?
+      - am I talking to a human?
+
+  # -----------------------------------------------------------
+  # Additional Intents for Mobility & Employability
+  # -----------------------------------------------------------
+
+  - intent: ask_internship_abroad
+    examples: |
+      - How can I apply for an internship abroad?
+      - What steps do I need to take to get an overseas internship?
+      - I want to do an internship outside my country
+      - Is there a special process for an international internship?
+      - Do I need specific documents for an internship abroad?
+
+  - intent: ask_exchange_conditions
+    examples: |
+      - What are the requirements for the exchange program?
+      - How do I qualify for a student exchange?
+      - Who can apply for the exchange program?
+      - Which documents do I need for the exchange application?
+      - Tell me about the eligibility for the exchange program
+
+  - intent: ask_exchange_funding
+    examples: |
+      - How can I get financial support for an exchange program?
+      - Is there a scholarship available for an exchange program?
+      - Do I receive any allowance during the exchange?
+      - Can I apply for a grant for my exchange?
+      - How do I manage expenses for the exchange program?
+
+  - intent: ask_internship_extension
+    examples: |
+      - Can I extend my internship if I need more time?
+      - Is it possible to prolong an international internship?
+      - What if my internship period is too short?
+      - Can I request an extension for my internship abroad?
+
+  - intent: ask_cv_advice
+    examples: |
+      - How do I write a good CV?
+      - I need tips on creating my resume
+      - What should I include in my CV?
+      - Do you have any advice for writing my CV?
+      - How can I make my resume stand out?
+
+  - intent: ask_job_search
+    examples: |
+      - Where can I find job offers related to my field?
+      - How do I look for job vacancies?
+      - Can you recommend some platforms for job searching?
+      - Where should I apply for my first job?
+      - What are the best sites to find internships or jobs?
+
+  - intent: ask_interview_prep
+    examples: |
+      - How do I prepare for a job interview?
+      - What questions are typically asked during interviews?
+      - Any advice for doing well in an interview?
+      - How can I get ready for a technical interview?
+      - I need some interview preparation tips
+
+  - intent: ask_apprenticeship
+    examples: |
+      - What is the process for an apprenticeship program?
+      - How do I apply for a work-study contract?
+      - What are the benefits of an apprenticeship?
+      - Do companies offer apprenticeship programs?
+      - Is an apprenticeship paid?

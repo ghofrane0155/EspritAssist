@@ -1,0 +1,4 @@
+# Rasa-specific directories
+.rasa/
+models/
+rasa-env/

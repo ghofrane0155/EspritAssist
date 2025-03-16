@@ -1,0 +1,70 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - mood_great
+  - mood_unhappy
+  - bot_challenge
+  # New intents for Mobility & Employability
+  - ask_internship_abroad
+  - ask_exchange_conditions
+  - ask_exchange_funding
+  - ask_internship_extension
+  - ask_cv_advice
+  - ask_job_search
+  - ask_interview_prep
+  - ask_apprenticeship
+
+responses:
+  utter_greet:
+  - text: "Hey! How are you?"
+
+  utter_cheer_up:
+  - text: "Here is something to cheer you up:"
+    image: "https://i.imgur.com/nGF1K8f.jpg"
+
+  utter_did_that_help:
+  - text: "Did that help you?"
+
+  utter_happy:
+  - text: "Great, carry on!"
+
+  utter_goodbye:
+  - text: "Bye"
+
+  utter_iamabot:
+  - text: "I am a bot, powered by Rasa."
+  
+  # -----------------------------------------------------------
+  # Placeholder responses for new intents
+  # -----------------------------------------------------------
+  utter_ask_internship_abroad:
+  - text: "You asked about an internship abroad. [Add your details here.]"
+
+  utter_ask_exchange_conditions:
+  - text: "You asked about the exchange program requirements. [Add your details here.]"
+
+  utter_ask_exchange_funding:
+  - text: "You asked about funding for an exchange program. [Add your details here.]"
+
+  utter_ask_internship_extension:
+  - text: "You asked about extending your internship. [Add your details here.]"
+
+  utter_ask_cv_advice:
+  - text: "You asked for CV writing tips. [Add your details here.]"
+
+  utter_ask_job_search:
+  - text: "You asked about job search platforms or strategies. [Add your details here.]"
+
+  utter_ask_interview_prep:
+  - text: "You asked about interview preparation. [Add your details here.]"
+
+  utter_ask_apprenticeship:
+  - text: "You asked about apprenticeship programs. [Add your details here.]"
+  
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
