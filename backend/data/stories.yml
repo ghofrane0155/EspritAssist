@@ -32,43 +32,13 @@ stories:
 # -----------------------------------------------------------
 # Additional Stories for Mobility & Employability Intents
 # -----------------------------------------------------------
-
-- story: internship abroad
-  steps:
-  - intent: ask_internship_abroad
-  - action: utter_ask_internship_abroad
-
 - story: exchange conditions
   steps:
   - intent: ask_exchange_conditions
   - action: utter_ask_exchange_conditions
 
-- story: exchange funding
+- story: passport requirement
   steps:
-  - intent: ask_exchange_funding
-  - action: utter_ask_exchange_funding
+  - intent: ask_passport_requirement
+  - action: utter_ask_passport_requirement
 
-- story: internship extension
-  steps:
-  - intent: ask_internship_extension
-  - action: utter_ask_internship_extension
-
-- story: CV advice
-  steps:
-  - intent: ask_cv_advice
-  - action: utter_ask_cv_advice
-
-- story: job search
-  steps:
-  - intent: ask_job_search
-  - action: utter_ask_job_search
-
-- story: interview preparation
-  steps:
-  - intent: ask_interview_prep
-  - action: utter_ask_interview_prep
-
-- story: apprenticeship info
-  steps:
-  - intent: ask_apprenticeship
-  - action: utter_ask_apprenticeship

@@ -10,7 +10,35 @@ assistant_id: 20250316-020046-crunchy-monitor
 # https://rasa.com/docs/rasa/nlu/components/
 language: en
 
-pipeline: null
+pipeline:
+  # 1️⃣ Use SpaCy NLP to improve sentence understanding
+  - name: "SpacyNLP"
+    model: "en_core_web_md"  # Make sure this model is installed!
+  - name: "SpacyTokenizer"
+  - name: "SpacyFeaturizer"
+
+  # 2️⃣ Use DIETClassifier for intent classification & ranking
+  - name: "DIETClassifier"
+    epochs: 100  # More training makes the bot smarter
+    ranking_length: 3  # Show the top 3 matching intents if unsure
+
+  # 3️⃣ Enable Fuzzy Matching for typos & close matches (corrects spelling mistakes )
+  - name: "RegexFeaturizer"
+  - name: "CRFEntityExtractor"
+  - name: "EntitySynonymMapper"
+  - name: "FallbackClassifier"
+    threshold: 0.6  # If intent confidence is low, fallback to a default response
+    ambiguity_threshold: 0.1  # Handle similar intents better
+
+  # 4️⃣ Use a Response Selector for FAQ-style questions(finds the best matching answer from its FAQ)
+  - name: "ResponseSelector"
+    epochs: 100
+
+  # 5️⃣ Use a basic text classifier as backup(chatbot is unsure, it asks for clarification instead of guessing)
+  - name: "FallbackClassifier"
+    threshold: 0.5
+    ambiguity_threshold: 0.1
+
 # # No configuration for the NLU pipeline was provided. The following default pipeline was used to train your model.
 # # If you'd like to customize it, uncomment and adjust the pipeline.
 # # See https://rasa.com/docs/rasa/tuning-your-model for more information.

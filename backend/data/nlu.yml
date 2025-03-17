@@ -93,66 +93,35 @@ nlu:
   # -----------------------------------------------------------
   # Additional Intents for Mobility & Employability
   # -----------------------------------------------------------
-
-  - intent: ask_internship_abroad
-    examples: |
-      - How can I apply for an internship abroad?
-      - What steps do I need to take to get an overseas internship?
-      - I want to do an internship outside my country
-      - Is there a special process for an international internship?
-      - Do I need specific documents for an internship abroad?
-
   - intent: ask_exchange_conditions
     examples: |
-      - What are the requirements for the exchange program?
-      - How do I qualify for a student exchange?
-      - Who can apply for the exchange program?
-      - Which documents do I need for the exchange application?
-      - Tell me about the eligibility for the exchange program
+      - How does the international mobility program work at Esprit?
+      - What are the eligibility criteria for an exchange semester at Esprit?
+      - Do I need a minimum average to apply for mobility?
+      - How many semesters must I complete before applying for an exchange?
+      - What are the required documents for an exchange application?
+      - How are students selected for the exchange program?
+      - When do I receive emails about mobility opportunities?
+      - Are there language requirements for studying abroad?
+      - What is the difference between a semester exchange and a double degree?
+      - Give me info about the exchange program.
+      - Can you tell me about studying abroad at Esprit?
+      - Explain how international mobility works at Esprit.
+      - Tell me how I can study in another country.
+      - I want to apply for the mobility program, what should I do?
+      - How do I join the exchange program?
+      - I want to study abroad, where do I start?
+  
 
-  - intent: ask_exchange_funding
+  - intent: ask_passport_requirement
     examples: |
-      - How can I get financial support for an exchange program?
-      - Is there a scholarship available for an exchange program?
-      - Do I receive any allowance during the exchange?
-      - Can I apply for a grant for my exchange?
-      - How do I manage expenses for the exchange program?
-
-  - intent: ask_internship_extension
-    examples: |
-      - Can I extend my internship if I need more time?
-      - Is it possible to prolong an international internship?
-      - What if my internship period is too short?
-      - Can I request an extension for my internship abroad?
-
-  - intent: ask_cv_advice
-    examples: |
-      - How do I write a good CV?
-      - I need tips on creating my resume
-      - What should I include in my CV?
-      - Do you have any advice for writing my CV?
-      - How can I make my resume stand out?
-
-  - intent: ask_job_search
-    examples: |
-      - Where can I find job offers related to my field?
-      - How do I look for job vacancies?
-      - Can you recommend some platforms for job searching?
-      - Where should I apply for my first job?
-      - What are the best sites to find internships or jobs?
-
-  - intent: ask_interview_prep
-    examples: |
-      - How do I prepare for a job interview?
-      - What questions are typically asked during interviews?
-      - Any advice for doing well in an interview?
-      - How can I get ready for a technical interview?
-      - I need some interview preparation tips
-
-  - intent: ask_apprenticeship
-    examples: |
-      - What is the process for an apprenticeship program?
-      - How do I apply for a work-study contract?
-      - What are the benefits of an apprenticeship?
-      - Do companies offer apprenticeship programs?
-      - Is an apprenticeship paid?
+      - I don't have a passport. Can I still apply?
+      - My passport is expired. Can I still submit an application?
+      - Can I apply for an exchange program without a passport?
+      - What if my passport is missing, can I still be accepted?
+      - Will I need a valid passport before submitting my exchange application?
+      - Is a passport a required document for student mobility?
+      - What happens if my passport is still in process?
+      - Can I submit my exchange application and provide my passport later?
+      - I lost my passport, can I still apply for the exchange semester?
+      - Will my application be rejected if I don’t have a passport yet?

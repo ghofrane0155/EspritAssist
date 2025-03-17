@@ -9,14 +9,8 @@ intents:
   - mood_unhappy
   - bot_challenge
   # New intents for Mobility & Employability
-  - ask_internship_abroad
   - ask_exchange_conditions
-  - ask_exchange_funding
-  - ask_internship_extension
-  - ask_cv_advice
-  - ask_job_search
-  - ask_interview_prep
-  - ask_apprenticeship
+  - ask_passport_requirement
 
 responses:
   utter_greet:
@@ -41,29 +35,33 @@ responses:
   # -----------------------------------------------------------
   # Placeholder responses for new intents
   # -----------------------------------------------------------
-  utter_ask_internship_abroad:
-  - text: "You asked about an internship abroad. [Add your details here.]"
-
   utter_ask_exchange_conditions:
-  - text: "You asked about the exchange program requirements. [Add your details here.]"
+  - text: "Esprit University offers international mobility opportunities through  
+     semester exchanges and double-degree programs. Students receive emails from  
+     the Mobility Office (mobilite-internationale@esprit.tn) with application links.  
 
-  utter_ask_exchange_funding:
-  - text: "You asked about funding for an exchange program. [Add your details here.]"
+     To be eligible, students typically need to complete at least 4 semesters,  
+     maintain a good academic standing (average requirement varies by partner university),  
+     and submit an application form with required documents, such as:  
+     - Passport  
+     - ID card  
+     - Transcripts  
+     - Learning agreement  
 
-  utter_ask_internship_extension:
-  - text: "You asked about extending your internship. [Add your details here.]"
+     Selection is based on academic performance and host university requirements.  
+     Would you like details about specific universities or deadlines?"
 
-  utter_ask_cv_advice:
-  - text: "You asked for CV writing tips. [Add your details here.]"
+  # Passport Requirement
+  utter_ask_passport_requirement:
+  - text: "It is recommended to have a valid passport before applying for an exchange.  
+     However, some universities allow students to submit their application first  
+     and provide the passport later. Please check the specific requirements in  
+     the email sent by the Mobility Office (mobilite-internationale@esprit.tn)."
 
-  utter_ask_job_search:
-  - text: "You asked about job search platforms or strategies. [Add your details here.]"
 
-  utter_ask_interview_prep:
-  - text: "You asked about interview preparation. [Add your details here.]"
 
-  utter_ask_apprenticeship:
-  - text: "You asked about apprenticeship programs. [Add your details here.]"
+
+  ######################################""
   
 session_config:
   session_expiration_time: 60
