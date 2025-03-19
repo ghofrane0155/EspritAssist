@@ -11,6 +11,10 @@ assistant_id: 20250316-020046-crunchy-monitor
 language: en
 
 pipeline:
+  # - name: "FallbackClassifier"
+  #   threshold: 0.4  # If confidence is below 40%, trigger fallback response
+  #   ambiguity_threshold: 0.1
+    
   # 1️⃣ Use SpaCy NLP to improve sentence understanding
   - name: "SpacyNLP"
     model: "en_core_web_md"  # Make sure this model is installed!
@@ -26,9 +30,7 @@ pipeline:
   - name: "RegexFeaturizer"
   - name: "CRFEntityExtractor"
   - name: "EntitySynonymMapper"
-  - name: "FallbackClassifier"
-    threshold: 0.6  # If intent confidence is low, fallback to a default response
-    ambiguity_threshold: 0.1  # Handle similar intents better
+ 
 
   # 4️⃣ Use a Response Selector for FAQ-style questions(finds the best matching answer from its FAQ)
   - name: "ResponseSelector"
@@ -36,43 +38,16 @@ pipeline:
 
   # 5️⃣ Use a basic text classifier as backup(chatbot is unsure, it asks for clarification instead of guessing)
   - name: "FallbackClassifier"
-    threshold: 0.5
+    threshold: 0.6
     ambiguity_threshold: 0.1
 
-# # No configuration for the NLU pipeline was provided. The following default pipeline was used to train your model.
-# # If you'd like to customize it, uncomment and adjust the pipeline.
-# # See https://rasa.com/docs/rasa/tuning-your-model for more information.
-#   - name: WhitespaceTokenizer
-#   - name: RegexFeaturizer
-#   - name: LexicalSyntacticFeaturizer
-#   - name: CountVectorsFeaturizer
-#   - name: CountVectorsFeaturizer
-#     analyzer: char_wb
-#     min_ngram: 1
-#     max_ngram: 4
-#   - name: DIETClassifier
-#     epochs: 100
-#     constrain_similarities: true
-#   - name: EntitySynonymMapper
-#   - name: ResponseSelector
-#     epochs: 100
-#     constrain_similarities: true
-#   - name: FallbackClassifier
-#     threshold: 0.3
-#     ambiguity_threshold: 0.1
 
-# Configuration for Rasa Core.
-# https://rasa.com/docs/rasa/core/policies/
-policies: null
-# # No configuration for policies was provided. The following default policies were used to train your model.
-# # If you'd like to customize them, uncomment and adjust the policies.
-# # See https://rasa.com/docs/rasa/policies for more information.
-#   - name: MemoizationPolicy
-#   - name: RulePolicy
-#   - name: UnexpecTEDIntentPolicy
-#     max_history: 5
-#     epochs: 100
-#   - name: TEDPolicy
-#     max_history: 5
-#     epochs: 100
-#     constrain_similarities: true
+policies:
+  - name: MemoizationPolicy
+  - name: TEDPolicy
+    max_history: 5
+    epochs: 100
+  - name: RulePolicy
+    core_fallback_threshold: 0.3
+    core_fallback_action_name: "utter_fallback"
+    enable_fallback_prediction: True

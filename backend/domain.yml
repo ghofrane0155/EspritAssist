@@ -11,10 +11,11 @@ intents:
   # New intents for Mobility & Employability
   - ask_exchange_conditions
   - ask_passport_requirement
+  - nlu_fallback  # This is triggered by low confidence
 
 responses:
   utter_greet:
-  - text: "Hey! How are you?"
+  - text: "Hey! How can I help you today?"
 
   utter_cheer_up:
   - text: "Here is something to cheer you up:"
@@ -58,11 +59,16 @@ responses:
      and provide the passport later. Please check the specific requirements in  
      the email sent by the Mobility Office (mobilite-internationale@esprit.tn)."
 
+  utter_fallback:
+  - text: "I'm sorry, I didn't understand that. Could you rephrase or choose an option?"
+    buttons:
+      - title: "Exchange Program Requirements"
+        payload: "/ask_exchange_conditions"
+      - title: "Passport Requirements"
+        payload: "/ask_passport_requirement"
 
 
-
-  ######################################""
-  
+  ######################################
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true

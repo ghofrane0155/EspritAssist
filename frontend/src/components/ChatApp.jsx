@@ -72,8 +72,14 @@ const ChatApp = () => {
             }
         });
 
-        const botResponse = response.data[0]?.text || 'No response';
-        updatedChats[selectedChatIndex].push({ bot: botResponse });
+        // 1) Extract text and buttons from the first message
+        const { text, buttons } = response.data[0] || {};
+        // 2) Push an object with both text and buttons into your chat array
+        updatedChats[selectedChatIndex].push({
+          bot: text || 'No response',
+          buttons: buttons || []
+        });
+        ////////////
         setChats([...updatedChats]);
         localStorage.setItem('chats', JSON.stringify(updatedChats)); // Store chats in localStorage
 
