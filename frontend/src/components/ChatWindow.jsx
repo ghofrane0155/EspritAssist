@@ -4,10 +4,9 @@ const ChatWindow = ({ chat = [], onSendMessage, conversationId }) => {
   const [message, setMessage] = useState('');
   const messagesEndRef = useRef(null);
 
-  // When user clicks a button from the fallback or any bot message
-  const handleButtonClick = (payload) => {
-    // Send the button payload as a new user message
-    onSendMessage(payload);
+  // When a fallback (or any bot) button is clicked, send both display text and payload
+  const handleButtonClick = (btn) => {
+    onSendMessage(btn.title, btn.payload);
   };
 
   const handleSubmit = (e) => {
@@ -17,7 +16,8 @@ const ChatWindow = ({ chat = [], onSendMessage, conversationId }) => {
       return;
     }
     if (message.trim()) {
-      onSendMessage(message);
+      // For typed messages, display text and payload are identical.
+      onSendMessage(message, message);
       setMessage('');
     }
   };
@@ -33,10 +33,10 @@ const ChatWindow = ({ chat = [], onSendMessage, conversationId }) => {
   }, [chat, message]);
 
   return (
-    <div className="chat-window flex flex-col flex-1 p-4">
-      <div className="messages flex-grow mb-4 overflow-y-auto">
+    <div className="chat-window flex flex-col flex-1 p-4 bg-gray-100 text-gray-900">
+      <div className="messages flex-grow mb-4 overflow-y-auto bg-white p-4 rounded shadow">
         {chat.length === 0 ? (
-          <div className="text-center text-gray-200 font-bold">
+          <div className="text-center text-gray-500 font-bold">
             What can I help with?
           </div>
         ) : (
@@ -45,8 +45,8 @@ const ChatWindow = ({ chat = [], onSendMessage, conversationId }) => {
               {/* User Message */}
               {msg.user && (
                 <div className="py-2 flex justify-end">
-                  <div className="user-message bg-[#3C3D37] p-4 rounded-full inline-block max-w-full">
-                    <strong className="text-purple-300">User:</strong> {msg.user}
+                  <div className="user-message bg-gray-300 text-gray-900 p-4 rounded-full inline-block max-w-full">
+                    <strong className="text-gray-700">User:</strong> {msg.user}
                   </div>
                 </div>
               )}
@@ -54,16 +54,15 @@ const ChatWindow = ({ chat = [], onSendMessage, conversationId }) => {
               {msg.bot && (
                 <div className="py-2">
                   <div className="bot-message text-left">
-                    <strong className="text-purple-300">Bot:</strong> {msg.bot}
+                    <strong className="text-gray-700">Bot:</strong> {msg.bot}
                   </div>
-                  {/* Render buttons if they exist */}
                   {msg.buttons && msg.buttons.length > 0 && (
                     <div className="mt-2">
                       {msg.buttons.map((btn, i) => (
                         <button
                           key={i}
-                          onClick={() => handleButtonClick(btn.payload)}
-                          className="mr-2 p-2 bg-blue-600 hover:bg-blue-700 text-white rounded"
+                          onClick={() => handleButtonClick(btn)}
+                          className="mr-2 p-2 bg-blue-500 hover:bg-blue-600 text-white rounded"
                         >
                           {btn.title}
                         </button>
@@ -83,9 +82,9 @@ const ChatWindow = ({ chat = [], onSendMessage, conversationId }) => {
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           placeholder="Type a message"
-          className="border p-2 flex-grow text-gray-800"
+          className="border border-gray-400 p-2 flex-grow bg-white text-gray-900 rounded-l focus:outline-none"
         />
-        <button type="submit" className="bg-[#ECDFCC] text-gray-800 p-2 ml-2">
+        <button type="submit" className="bg-[#B22222] hover:bg-[#A52A2A] text-white p-2 ml-2 rounded-r">
           Send
         </button>
       </form>

@@ -25,16 +25,14 @@ const ChatApp = () => {
         if (currentConversationId) {
           const response = await axios.get(`http://localhost:5001/history?user_id=${userId}&conversation_id=${currentConversationId}`);
           const data = response.data;
-
           const formattedData = data.map(chat => ({
             user: chat.user_message,
             bot: chat.bot_response
           }));
-
           const updatedChats = [...chats];
           updatedChats[selectedChatIndex] = formattedData;
           setChats(updatedChats);
-          localStorage.setItem('chats', JSON.stringify(updatedChats)); // Store chats in localStorage
+          localStorage.setItem('chats', JSON.stringify(updatedChats));
         }
       } catch (error) {
         console.error("Error fetching chat history:", error);
@@ -44,112 +42,97 @@ const ChatApp = () => {
     fetchChatHistory();
   }, [userId, conversations, selectedChatIndex]);
 
-  const handleSendMessage = async (message) => {
+  // Updated to accept displayText and payload
+  const handleSendMessage = async (displayText, payload) => {
     const updatedChats = [...chats];
-
     if (!updatedChats[selectedChatIndex]) {
-        updatedChats[selectedChatIndex] = [];
+      updatedChats[selectedChatIndex] = [];
     }
-    updatedChats[selectedChatIndex].push({ user: message });
+    // Add user's message (displayText) to chat history
+    updatedChats[selectedChatIndex].push({ user: displayText });
     setChats([...updatedChats]);
-    localStorage.setItem('chats', JSON.stringify(updatedChats)); // Store chats in localStorage
+    localStorage.setItem('chats', JSON.stringify(updatedChats));
 
     const currentConversationId = conversations[selectedChatIndex]?.conversationId;
-
     if (!currentConversationId) {
-        console.error("Conversation ID is missing!");
-        return;
+      console.error("Conversation ID is missing!");
+      return;
     }
 
     try {
-        const response = await axios.post('http://localhost:5001/chat', {
-            message: message,
-            user_id: userId,
-            conversation_id: currentConversationId
-        }, {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-
-        // 1) Extract text and buttons from the first message
-        const { text, buttons } = response.data[0] || {};
-        // 2) Push an object with both text and buttons into your chat array
-        updatedChats[selectedChatIndex].push({
-          bot: text || 'No response',
-          buttons: buttons || []
-        });
-        ////////////
-        setChats([...updatedChats]);
-        localStorage.setItem('chats', JSON.stringify(updatedChats)); // Store chats in localStorage
-
+      // Send the payload to Rasa
+      const response = await axios.post('http://localhost:5001/chat', {
+        message: payload,
+        user_id: userId,
+        conversation_id: currentConversationId
+      }, {
+        headers: { 'Content-Type': 'application/json' }
+      });
+      const { text, buttons } = response.data[0] || {};
+      updatedChats[selectedChatIndex].push({
+        bot: text || 'No response',
+        buttons: buttons || []
+      });
+      setChats([...updatedChats]);
+      localStorage.setItem('chats', JSON.stringify(updatedChats));
     } catch (error) {
-        console.error('Error sending message:', error);
+      console.error('Error sending message:', error);
     }
   };
 
   const startNewConversation = async () => {
     try {
-        const response = await axios.post('http://localhost:5001/new_conversation', {
-            user_id: userId
-        });
-        const newConversationId = response.data.conversation_id;  // Save the conversation ID
-        const newConversations = [...conversations, { conversationId: newConversationId }];
-        setConversations(newConversations);  // Update the conversations state
-        localStorage.setItem('conversations', JSON.stringify(newConversations));  // Store conversations in localStorage
-        const newChats = [...chats, []]; // Add a new empty chat array
-        setChats(newChats);
-        localStorage.setItem('chats', JSON.stringify(newChats)); // Store chats in localStorage
-        const newIndex = newConversations.length - 1;
-        setSelectedChatIndex(newIndex); // Select the new conversation
-        localStorage.setItem('selectedChatIndex', newIndex); // Store selectedChatIndex in localStorage
-        console.log('New conversation started:', newConversationId);
+      const response = await axios.post('http://localhost:5001/new_conversation', {
+        user_id: userId
+      });
+      const newConversationId = response.data.conversation_id;
+      const newConversations = [...conversations, { conversationId: newConversationId }];
+      setConversations(newConversations);
+      localStorage.setItem('conversations', JSON.stringify(newConversations));
+      const newChats = [...chats, []];
+      setChats(newChats);
+      localStorage.setItem('chats', JSON.stringify(newChats));
+      const newIndex = newConversations.length - 1;
+      setSelectedChatIndex(newIndex);
+      localStorage.setItem('selectedChatIndex', newIndex);
+      console.log('New conversation started:', newConversationId);
     } catch (error) {
-        console.error('Error starting a new conversation:', error);
+      console.error('Error starting a new conversation:', error);
     }
   };
 
   const deleteConversation = async (index) => {
     const conversationId = conversations[index]?.conversationId;
-
     if (!conversationId) {
-        console.error("Conversation ID is missing!");
-        return;
+      console.error("Conversation ID is missing!");
+      return;
     }
-
     try {
-        await axios.delete(`http://localhost:5001/conversation`, {
-            data: {
-                user_id: userId,
-                conversation_id: conversationId
-            }
-        });
-
-        const newConversations = conversations.filter((_, i) => i !== index);
-        const newChats = chats.filter((_, i) => i !== index);
-
-        setConversations(newConversations);
-        setChats(newChats);
-
-        localStorage.setItem('conversations', JSON.stringify(newConversations));
-        localStorage.setItem('chats', JSON.stringify(newChats));
-
-        if (selectedChatIndex >= newConversations.length) {
-            setSelectedChatIndex(newConversations.length - 1);
-            localStorage.setItem('selectedChatIndex', newConversations.length - 1);
-        }
+      await axios.delete(`http://localhost:5001/conversation`, {
+        data: { user_id: userId, conversation_id: conversationId }
+      });
+      const newConversations = conversations.filter((_, i) => i !== index);
+      const newChats = chats.filter((_, i) => i !== index);
+      setConversations(newConversations);
+      setChats(newChats);
+      localStorage.setItem('conversations', JSON.stringify(newConversations));
+      localStorage.setItem('chats', JSON.stringify(newChats));
+      if (selectedChatIndex >= newConversations.length) {
+        setSelectedChatIndex(newConversations.length - 1);
+        localStorage.setItem('selectedChatIndex', newConversations.length - 1);
+      }
     } catch (error) {
-        console.error('Error deleting conversation:', error);
+      console.error('Error deleting conversation:', error);
     }
   };
 
   const selectChat = (index) => {
     setSelectedChatIndex(index);
-    localStorage.setItem('selectedChatIndex', index); // Store selectedChatIndex in localStorage
+    localStorage.setItem('selectedChatIndex', index);
   };
 
   return (
-    <div className="chat-app h-screen flex text-gray-100">
+    <div className="chat-app h-screen flex">
       <ChatSidebar
         chats={chats}
         selectChat={selectChat}
