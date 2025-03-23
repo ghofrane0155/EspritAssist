@@ -16,9 +16,16 @@ nlu:
       - goodmorning
       - goodevening
       - good afternoon
-      - what's up?
       - I need some help
       - I have a question
+
+  - intent: ask_how_are_you
+    examples: |
+      - how r u
+      - how are you
+      - how are you doing
+      - how's it going
+      - what's up
 
   - intent: goodbye
     examples: |

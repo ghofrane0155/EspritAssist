@@ -1,13 +1,37 @@
 import React, { useState } from 'react';
 import { FaTrash, FaBars, FaTimes } from 'react-icons/fa';
-
-// Replace with your actual logo URL if available
+import DeleteConfirmationModal from './DeleteConfirmationModal'; // ADDED: Import the modal
 
 const ChatSidebar = ({ chats, selectChat, deleteConversation, startNewConversation, selectedChatIndex }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
+  // ADDED: State for modal visibility and which chat to delete
+  const [isModalOpen, setIsModalOpen] = useState(false); 
+  const [chatToDelete, setChatToDelete] = useState(null); 
+
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
+  };
+
+  // ADDED: Handler for delete button click – open the modal
+  const handleDeleteClick = (e, index) => {
+    e.stopPropagation();
+    setChatToDelete(index);
+    setIsModalOpen(true);
+  };
+
+  // ADDED: Close modal without deleting
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setChatToDelete(null);
+  };
+
+  // ADDED: Confirm deletion and then close modal
+  const confirmDelete = () => {
+    if (chatToDelete !== null) {
+      deleteConversation(chatToDelete);
+    }
+    closeModal();
   };
 
   return (
@@ -35,13 +59,9 @@ const ChatSidebar = ({ chats, selectChat, deleteConversation, startNewConversati
                 <div className="flex-1 text-white">
                   Conversation {index + 1}
                 </div>
+                {/* ADDED: Use the custom modal instead of window.confirm */}
                 <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    if (window.confirm('Are you sure you want to delete this conversation?')) {
-                      deleteConversation(index);
-                    }
-                  }}
+                  onClick={(e) => handleDeleteClick(e, index)}
                   className="ml-2 p-1 text-white rounded hover:text-red-300"
                 >
                   <FaTrash />
@@ -57,6 +77,13 @@ const ChatSidebar = ({ chats, selectChat, deleteConversation, startNewConversati
           New Chat
         </button>
       </div>
+      {/* ADDED: Render the custom Delete Confirmation Modal */}
+      <DeleteConfirmationModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        onConfirm={confirmDelete}
+        chatName={chatToDelete !== null ? `Conversation ${chatToDelete + 1}` : 'unknown'}
+      />
     </div>
   );
 };

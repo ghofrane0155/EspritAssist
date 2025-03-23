@@ -42,3 +42,9 @@ stories:
   - intent: ask_passport_requirement
   - action: utter_ask_passport_requirement
 
+- story: ask how are you
+  steps:
+    - intent: ask_how_are_you
+    - action: utter_ask_how_are_you
+
+

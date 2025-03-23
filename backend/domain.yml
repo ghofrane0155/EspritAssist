@@ -11,11 +11,15 @@ intents:
   # New intents for Mobility & Employability
   - ask_exchange_conditions
   - ask_passport_requirement
+  - ask_how_are_you
   - nlu_fallback  # This is triggered by low confidence
 
 responses:
   utter_greet:
   - text: "Hey! How can I help you today?"
+
+  utter_ask_how_are_you:
+    - text: "I'm doing well, thanks for asking! How can I assist you today?"
 
   utter_cheer_up:
   - text: "Here is something to cheer you up:"
